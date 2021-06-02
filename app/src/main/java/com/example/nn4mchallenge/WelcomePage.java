@@ -21,6 +21,7 @@ public class WelcomePage extends AppCompatActivity {
         productPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Go to new activity on button click
                 startActivity(new Intent(getApplicationContext(), ProductPage.class));
             }
         });

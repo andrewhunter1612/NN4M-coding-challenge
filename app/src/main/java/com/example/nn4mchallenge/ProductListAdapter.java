@@ -1,5 +1,6 @@
 package com.example.nn4mchallenge;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
 
-    private List<Product> products;
+    private List<Product> productList;
+    private ProductListAdapter.OnItemClickListener listener;
 
-    public ProductAdapter() {
-        this.products = new ArrayList<>();
+    public ProductListAdapter() {
+        this.productList = new ArrayList<>();
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     @NonNull
@@ -37,20 +39,30 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        holder.itemPriceTextView.setText(String.valueOf(products.get(position).getPrice()));
-        holder.itemNameTextView.setText(products.get(position).getName());
+        holder.itemPriceTextView.setText(String.valueOf(productList.get(position).getPrice()));
+        holder.itemNameTextView.setText(productList.get(position).getName());
+        holder.itemImageView.setImageURI(Uri.parse(productList.get(position).getImageUrl()));
 
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return productList.size();
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(ProductListAdapter.OnItemClickListener listener){
+        this.listener = listener;
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        TextView itemNameTextView,itemPriceTextView;
-        ImageView itemImageView;
+        private TextView itemNameTextView,itemPriceTextView;
+        private ImageView itemImageView;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
