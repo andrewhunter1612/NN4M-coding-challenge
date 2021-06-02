@@ -8,5 +8,8 @@ import retrofit2.http.GET;
 public interface JsonApi {
 
     @GET
-    Call<List<Product>> products;
+    Call<List<Product>> getAllProducts();
+
+    @GET
+    Call<Product> getProduct();
 }
