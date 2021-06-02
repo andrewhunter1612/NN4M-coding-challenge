@@ -1,17 +1,21 @@
 package com.example.nn4mchallenge;
 
-import android.widget.TextView;
+import com.google.gson.annotations.SerializedName;
 
 public class Product {
 
     private String name;
+
+    @SerializedName("cost")
     private double price;
-    private String imageUrl;
+
+    @SerializedName("prodid")
+    private String prodid;
 
     public Product(String name, double price, String imageUrl) {
         this.name = name;
         this.price = price;
-        this.imageUrl = imageUrl;
+        this.prodid = imageUrl;
     }
 
     public String getName() {
@@ -30,11 +34,11 @@ public class Product {
         this.price = price;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getProdid() {
+        return prodid;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setProdid(String prodid) {
+        this.prodid = prodid;
     }
 }
