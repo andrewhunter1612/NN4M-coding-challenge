@@ -1,13 +1,14 @@
 package com.example.nn4mchallenge;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -51,7 +52,7 @@ public class ProductPage extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProductList> call, Response<ProductList> response) {
                 if (!response.isSuccessful()) {
-                    Log.d(TAG, "Code: " + response.code());
+                    Log.d(TAG, "Response was unsuccessful. Error code is: " + response.code());
                     return;
                 }
 
@@ -65,7 +66,7 @@ public class ProductPage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ProductList> call, Throwable t) {
-                Log.d(TAG, "onCreate: in not thing product page" + t.getMessage());
+                Log.d(TAG, "Error: " + t.getMessage());
             }
         });
 
@@ -73,13 +74,14 @@ public class ProductPage extends AppCompatActivity {
         productListAdapter.setOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
+                Gson gson = new Gson();
+                String json = gson.toJson(productList);
 
 
                 Intent itemClickIntent = new Intent(getApplicationContext(), MoreDetails.class);
                 itemClickIntent.putExtra("item_clicked_position", position);
+                itemClickIntent.putExtra("product_list", json);
                 startActivity(itemClickIntent);
-
             }
         });
 

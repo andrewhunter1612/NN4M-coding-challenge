@@ -1,8 +1,5 @@
 package com.example.nn4mchallenge;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.http.Url;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
 
@@ -48,7 +40,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        holder.itemPriceTextView.setText("£"+String.valueOf(productList.get(position).getPrice()));
+        holder.itemPriceTextView.setText("£" + String.valueOf(productList.get(position).getPrice()));
         holder.itemNameTextView.setText(productList.get(position).getName());
         Picasso.get().load("http://riverisland.scene7.com/is/image/RiverIsland/" +
                 productList.get(position).getProdid() +
@@ -80,6 +72,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             itemImageView = itemView.findViewById(R.id.itemImageView);
             itemNameTextView = itemView.findViewById(R.id.itemNameTextView);
             itemPriceTextView = itemView.findViewById(R.id.itemPriceTextView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getBindingAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                        listener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 }

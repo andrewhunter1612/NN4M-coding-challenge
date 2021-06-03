@@ -10,9 +10,4 @@ public interface JsonApi {
     @GET("products.json")
     Call<ProductList> getAllProducts();
 
-//    @GET("products.json")
-//    Call<List<Product>> getAllProducts();
-
-//    @GET("/")
-//    Call<Product> getProduct();
 }
