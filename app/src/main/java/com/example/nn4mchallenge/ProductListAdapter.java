@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -46,31 +48,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        holder.itemPriceTextView.setText(String.valueOf(productList.get(position).getPrice()));
+        holder.itemPriceTextView.setText("£"+String.valueOf(productList.get(position).getPrice()));
         holder.itemNameTextView.setText(productList.get(position).getName());
-
-
-
-//        holder.itemImageView.setImageURI(Uri.parse("http://riverisland.scene7.com/is/image/RiverIsland/" +
-//                productList.get(position).getProdid() +
-//                "_main"));
-
-        URL url = null;
-        try {
-            url = new URL("http://image10.bizrate-images.com/resize?sq=60&uid=2216744464");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        Bitmap bitmap = null;
-        try {
-            bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            holder.itemImageView.setImageBitmap(bitmap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        Picasso.get().load("http://riverisland.scene7.com/is/image/RiverIsland/" +
+                productList.get(position).getProdid() +
+                "_main").into(holder.itemImageView);
     }
 
     @Override

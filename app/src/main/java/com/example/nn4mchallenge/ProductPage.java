@@ -31,16 +31,13 @@ public class ProductPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
 
-        Log.d(TAG, "onCreate: product page");
-
         productListRecyclerView = findViewById(R.id.productRecyclerView);
 
         productList = new ArrayList<>();
-
         productListAdapter = new ProductListAdapter();
 
 
-
+        //get data from the api
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://static-ri.ristack-3.nn4maws.net/v1/plp/en_gb/2506/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -53,18 +50,12 @@ public class ProductPage extends AppCompatActivity {
         call.enqueue(new Callback<ProductList>() {
             @Override
             public void onResponse(Call<ProductList> call, Response<ProductList> response) {
-                Log.d(TAG, "onCreate: in thing product page");
                 if (!response.isSuccessful()) {
                     Log.d(TAG, "Code: " + response.code());
                     return;
                 }
 
-                Log.d(TAG, "onResponse: response" + response.body().getProductArrayList().get(0).getName());
-
                 productList.addAll(response.body().getProductArrayList());
-                Log.d(TAG, "onResponse: second" + productList.get(2).getPrice());
-                Log.d(TAG, "onResponse: second" + productList.get(2).getName());
-                Log.d(TAG, "onResponse: second" + productList.get(2).getProdid());
 
                 productListAdapter.setProductList(productList);
                 productListRecyclerView.setAdapter(productListAdapter);
@@ -78,13 +69,12 @@ public class ProductPage extends AppCompatActivity {
             }
         });
 
-
-
-
         //go to ProductPage when an item on the page is clicked
         productListAdapter.setOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+
+
 
                 Intent itemClickIntent = new Intent(getApplicationContext(), MoreDetails.class);
                 itemClickIntent.putExtra("item_clicked_position", position);

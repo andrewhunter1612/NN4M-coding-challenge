@@ -7,12 +7,12 @@ public class Product {
     private String name;
 
     @SerializedName("cost")
-    private double price;
+    private int price;
 
     @SerializedName("prodid")
     private String prodid;
 
-    public Product(String name, double price, String imageUrl) {
+    public Product(String name, int price, String imageUrl) {
         this.name = name;
         this.price = price;
         this.prodid = imageUrl;
@@ -26,11 +26,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
